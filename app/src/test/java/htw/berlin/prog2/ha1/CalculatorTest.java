@@ -125,5 +125,22 @@ class CalculatorTest {
         assertEquals(expected, actual); // Vergleich von Erwartung und tatsächlichem Ergebnis
     }
 
+    //Teilaufgabe2 ab hier
+    @Test
+    @DisplayName("should display error when trying to divide without an operand and pressing equals")
+    void testDivisionWithoutOperandAndEquals() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("/"); // Divisionstaste ohne vorherige Ziffer
+        calc.pressEqualsKey(); // Drücke gleich
+
+        String expected = "Error"; // Erwartet: "Error"
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
 }
 
