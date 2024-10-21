@@ -117,7 +117,7 @@ class CalculatorTest {
         calc.pressDigitKey(6); // Drücke: 6
         calc.pressBinaryOperationKey("x"); // Drück: x (Multiplikation)
         calc.pressDigitKey(7); // Drücke: 7
-        calc.pressEqualsKey(); // Drücke: =
+        calc.pressEqualsKey(); // Drücke: das Istgleich
 
         String expected = "42"; // Erwartung: "42"
         String actual = calc.readScreen();
