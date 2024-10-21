@@ -90,5 +90,40 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    //erster selbst geschriebener Test bei dem ich mir nicht sicher bin ob die Aufgabenstellung abgedeckt ist
+    @Test
+    @DisplayName("It should not allow multiple plus signs in a row without numbers in between during additions.")
+    void testMultiplePlusSignsInARow(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(4);
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    //zweiter selbstgeschriebener Test die definitiv die Aufgabenstellung erfüllen sollte
+    @Test
+    @DisplayName("It should correctly multiply two numbers")
+    void testSimpleMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6); // Drücke: 6
+        calc.pressBinaryOperationKey("x"); // Drück: x (Multiplikation)
+        calc.pressDigitKey(7); // Drücke: 7
+        calc.pressEqualsKey(); // Drücke: =
+
+        String expected = "42"; // Erwartung: "42"
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); // Vergleich von Erwartung und tatsächlichem Ergebnis
+    }
+
 }
 
