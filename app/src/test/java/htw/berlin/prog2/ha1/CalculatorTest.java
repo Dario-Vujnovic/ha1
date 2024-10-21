@@ -141,6 +141,27 @@ class CalculatorTest {
     }
 
 
+    //zweite Teilaufgabe zweiter roter Test
+    @Test
+    @DisplayName("should display 0 when pressing equals after clear without entering a new value")
+    void testEqualsAfterClear() {
+        Calculator calc = new Calculator();
+
+        // Drücke die Ziffer 5
+        calc.pressDigitKey(5);
+        // Drücke die Clear-Taste
+        calc.pressClearKey();
+        // Drücke die Gleichheits-Taste
+        calc.pressEqualsKey();
+
+        String expected = "0"; // Erwartet: "0" (da der Bildschirm nach dem Clear zurückgesetzt wurde)
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
 
 }
 
