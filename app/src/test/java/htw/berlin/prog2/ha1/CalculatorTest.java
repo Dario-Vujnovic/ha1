@@ -109,6 +109,7 @@ class CalculatorTest {
     }
 
     //Teilaufgabe2 ab hier
+    //erster roter Test der dann auf grün umgeändert wurde durch die Implementierung
     @Test
     @DisplayName("should display error when trying to divide without an operand and pressing equals")
     void testDivisionWithoutOperandAndEquals() {
@@ -124,7 +125,7 @@ class CalculatorTest {
     }
 
 
-    //zweite Teilaufgabe zweiter roter Test
+    //zweite Teilaufgabe zweiter roter Test, der dann auf grün umgeändert wurde durch die Implementierung
     @Test
     @DisplayName("should display 0 when pressing equals after clear without entering a new value")
     void testEqualsAfterClear() {

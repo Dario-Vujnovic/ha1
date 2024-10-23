@@ -118,8 +118,16 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        //Imlementierung des zweiten roten Tests aus Teilaufgabe 2
+        // Prüfen, ob der Bildschirm nach "Clear" auf "0" gesetzt wurde und keine Operation ausgeführt wurde
+        if (latestOperation.isEmpty()) { //isEmpty() ist eine MEthode aus  der Java-StandardBiB & latestOperation haben wir oben deklariert
+            screen = "0"; // Setze den Bildschirm auf "0", wenn keine Operation vorhanden ist
+            return;
+        }
+
+        //Implementierung des ersten roten Test aus Teilaufgabe 2
         // Prüfen, ob keine Zahl nach der Operation eingegeben wurde
-        if(screen.equals("0") && latestOperation.equals("/")) {
+        if (screen.equals("0") && latestOperation.equals("/")) { //screen & latestOperation sind oben deklariert, equals kennst du aus prog1
             screen = "Error"; // Zeige "Error" an, wenn versucht wird, ohne Operand zu dividieren
             return;
         }
@@ -132,14 +140,9 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error"; // Division durch 0
-        if(screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("Infinity")) screen = "Error"; // Division durch 0
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
-
-
-
-
-
 
 }
