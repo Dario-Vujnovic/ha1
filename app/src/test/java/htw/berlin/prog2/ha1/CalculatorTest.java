@@ -90,23 +90,6 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    //erster selbst geschriebener Test bei dem ich mir nicht sicher bin ob die Aufgabenstellung abgedeckt ist
-    @Test
-    @DisplayName("It should not allow multiple plus signs in a row without numbers in between during additions.")
-    void testMultiplePlusSignsInARow(){
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(4);
-        calc.pressBinaryOperationKey("+");
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(4);
-
-        String expected = "Error";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-
-    }
 
     //zweiter selbstgeschriebener Test die definitiv die Aufgabenstellung erfüllen sollte
     @Test
