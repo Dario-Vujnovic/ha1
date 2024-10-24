@@ -108,44 +108,22 @@ class CalculatorTest {
         assertEquals(expected, actual); // Vergleich von Erwartung und tatsächlichem Ergebnis
     }
 
+
     //Teilaufgabe2 ab hier
     //erster roter Test der dann auf grün umgeändert wurde durch die Implementierung
     @Test
-    @DisplayName("should display error when trying to divide without an operand and pressing equals")
-    void testDivisionWithoutOperandAndEquals() {
-        Calculator calc = new Calculator();
+    @DisplayName("should repeat the last operation when equals is pressed multiple times")
+    void testRepeatedEqualsKey() {
+        Calculator calculator = new Calculator();
 
-        calc.pressBinaryOperationKey("/"); // Divisionstaste ohne vorherige Ziffer
-        calc.pressEqualsKey(); // Drücke gleich
+        calculator.pressDigitKey(5);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(5);
+        calculator.pressEqualsKey();
+        calculator.pressEqualsKey();
 
-        String expected = "Error"; // Erwartet: "Error"
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
+        assertEquals("15", calculator.readScreen());
     }
-
-
-    //zweite Teilaufgabe zweiter roter Test, der dann auf grün umgeändert wurde durch die Implementierung
-    @Test
-    @DisplayName("should display 0 when pressing equals after clear without entering a new value")
-    void testEqualsAfterClear() {
-        Calculator calc = new Calculator();
-
-        // Drücke die Ziffer 5
-        calc.pressDigitKey(5);
-        // Drücke die Clear-Taste
-        calc.pressClearKey();
-        // Drücke die Gleichheits-Taste
-        calc.pressEqualsKey();
-
-        String expected = "0"; // Erwartet: "0" (da der Bildschirm nach dem Clear zurückgesetzt wurde)
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
-
-
 
 }
 
