@@ -125,5 +125,21 @@ class CalculatorTest {
         assertEquals("15", calculator.readScreen());
     }
 
+    @Test
+    @DisplayName("should start a new operation after equals is pressed and reuse the result")
+    void testNewOperationAfterEquals() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(8);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey();  // 8 + 2 = 10
+        calculator.pressBinaryOperationKey("x");  // Beginne neue Operation
+        calculator.pressDigitKey(5);
+        calculator.pressEqualsKey();  // 10 x 5 = 50
+
+        assertEquals("50", calculator.readScreen());
+    }
+
 }
 
