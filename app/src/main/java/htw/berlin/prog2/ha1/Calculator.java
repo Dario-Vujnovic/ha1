@@ -14,6 +14,9 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    // NEUE VARIABLE HINZUFÜGEN
+    private double latestOperand = 0.0;  // neue Variable zum Speichern des letzten Operanden
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -105,7 +108,9 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
+
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
     }
 
     /**
@@ -118,31 +123,38 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        //Imlementierung des zweiten roten Tests aus Teilaufgabe 2
-        // Prüfen, ob der Bildschirm nach "Clear" auf "0" gesetzt wurde und keine Operation ausgeführt wurde
-        if (latestOperation.isEmpty()) { //isEmpty() ist eine MEthode aus  der Java-StandardBiB & latestOperation haben wir oben deklariert
-            screen = "0"; // Setze den Bildschirm auf "0", wenn keine Operation vorhanden ist
-            return;
+        double currentValue = Double.parseDouble(screen);  //Den aktuellen Wert vom Bildschirm holen
+
+        // Wenn keine Operation vorher festgelegt wurde, beenden (keine Berechnung)
+        if (latestOperation.isEmpty()) return;
+
+        // Nur wenn der Operand noch nicht gesetzt wurde (also beim ersten Drücken von "="), speichern wir ihn
+        if (latestOperand == 0.0) {
+            latestOperand = currentValue;  // Speichern des aktuellen Werts als zweiten Operand für spätere Wiederholung
         }
 
-        //Implementierung des ersten roten Test aus Teilaufgabe 2
-        // Prüfen, ob keine Zahl nach der Operation eingegeben wurde
-        if (screen.equals("0") && latestOperation.equals("/")) { //screen & latestOperation sind oben deklariert, equals kennst du aus prog1
-            screen = "Error"; // Zeige "Error" an, wenn versucht wird, ohne Operand zu dividieren
-            return;
-        }
-
+        // Berechnung basierend auf der gespeicherten Operation und dem gespeicherten Operand
         var result = switch (latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
+            case "+" -> latestValue + latestOperand;  // Wiederholte Addition
+            case "-" -> latestValue - latestOperand;  // Wiederholte Subtraktion
+            case "x" -> latestValue * latestOperand;  // Wiederholte Multiplikation
+            case "/" -> latestOperand == 0 ? Double.POSITIVE_INFINITY : latestValue / latestOperand;  // Division, Fehler bei Division durch 0
+            default -> throw new IllegalArgumentException();  // Falls keine gültige Operation vorhanden ist
         };
-        screen = Double.toString(result);
-        if (screen.equals("Infinity")) screen = "Error"; // Division durch 0
+
+        // Das Ergebnis der Berechnung wird als neuer Wert gespeichert
+        latestValue = result;
+        screen = Double.toString(result);  // Der Bildschirm zeigt das Ergebnis der Berechnung an
+
+        // Falls eine Division durch Null erfolgt ist, zeigen wir "Error" an
+        if (screen.equals("Infinity")) screen = "Error";
+
+        // Falls das Ergebnis auf .0 endet, entfernen wir die Nachkommastellen
         if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+
+        // Wenn das Ergebnis zu viele Stellen hat, kürzen wir es auf maximal 10 Zeichen
         if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 
 }
